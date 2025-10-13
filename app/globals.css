@@ -1,0 +1,118 @@
+@import "tailwindcss";
+
+:root {
+  --background: #0d0208;
+  --foreground: #00ff41;
+  --matrix-green: #00ff41;
+  --matrix-dark-green: #008f11;
+  --matrix-black: #0d0208;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-mono);
+  --font-mono: var(--font-geist-mono);
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-geist-mono), 'Courier New', monospace;
+}
+
+/* Matrix rain animation */
+@keyframes matrix-rain {
+  0% {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(100vh);
+    opacity: 0;
+  }
+}
+
+/* Glitch effect */
+@keyframes glitch {
+  0%, 100% {
+    text-shadow: 0 0 5px #00ff41, 0 0 10px #00ff41;
+  }
+  50% {
+    text-shadow: 0 0 10px #00ff41, 0 0 20px #00ff41, 0 0 30px #00ff41;
+  }
+}
+
+/* Terminal cursor blink */
+@keyframes blink {
+  0%, 49% {
+    opacity: 1;
+  }
+  50%, 100% {
+    opacity: 0;
+  }
+}
+
+/* Shared Matrix Styles */
+@layer components {
+  .matrix-card-primary {
+    @apply p-6 bg-black/80 border-2 rounded font-mono border-[#00ff41] shadow-[0_0_20px_rgba(0,255,65,0.3)];
+  }
+
+  .matrix-card-secondary {
+    @apply p-6 bg-black/80 border-2 rounded font-mono border-[#008f11] shadow-[0_0_15px_rgba(0,143,17,0.3)];
+  }
+
+  .matrix-card-error {
+    @apply p-6 bg-black/80 border-2 rounded font-mono border-red-500 shadow-[0_0_20px_rgba(255,0,0,0.3)];
+  }
+
+  .matrix-heading-primary {
+    @apply text-2xl font-bold text-[#00ff41] font-mono;
+    text-shadow: 0 0 10px #00ff41;
+  }
+
+  .matrix-heading-large {
+    @apply text-5xl font-bold text-[#00ff41] font-mono;
+    text-shadow: 0 0 15px #00ff41;
+  }
+
+  .matrix-heading-secondary {
+    @apply text-xl font-bold text-[#00ff41] font-mono;
+  }
+
+  .matrix-text-green {
+    @apply text-[#00ff41];
+  }
+
+  .matrix-text-dark-green {
+    @apply text-[#008f11];
+  }
+
+  .matrix-text-error {
+    @apply text-red-500;
+  }
+
+  .matrix-input {
+    @apply px-4 py-2 bg-black border-2 border-[#008f11] rounded
+           focus:ring-2 focus:ring-[#00ff41] focus:border-[#00ff41]
+           text-[#00ff41] placeholder-[#008f11] font-mono;
+  }
+
+  .matrix-button {
+    @apply px-6 py-2 bg-[#008f11] hover:bg-[#00ff41] hover:text-black
+           disabled:bg-[#003300] text-[#00ff41] disabled:text-[#006600]
+           font-semibold rounded border-2 border-[#00ff41] transition-colors font-mono;
+  }
+
+  .matrix-button-small {
+    @apply px-3 py-1 text-sm bg-black border border-[#008f11]
+           hover:bg-[#008f11] text-[#00ff41] rounded transition-colors font-mono;
+  }
+}
