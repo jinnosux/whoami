@@ -1,9 +1,57 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Who Am I?
 
-## Getting Started
+A Matrix-themed Next.js web application that displays your IP address, geolocation, browser information, and provides WHOIS lookup functionality for domains and IP addresses.
 
-First, run the development server:
+## Features
 
+- **IP Address Detection**: Automatically detects and displays your public IP address
+- **Geolocation Information**: Shows your location, timezone, ISP, and organization details
+- **Browser Information**: Displays user agent, language, encoding, and connection details
+- **Request Headers**: View all HTTP request headers sent by your browser
+- **WHOIS Lookup**: Search for domain or IP address registration information
+
+## Technologies
+
+- **Next.js 15** - React framework with App Router
+- **React 19** - UI library
+- **TypeScript** - Type safety
+- **Tailwind CSS 4** - Styling and responsive design
+- **Whoiser** - WHOIS lookup library
+
+## APIs Used
+
+- **[ipify](https://www.ipify.org/)** - Public IP detection for localhost environments
+- **[ip-api.com](http://ip-api.com/)** - IP geolocation service
+- **[rdap.org](https://rdap.org/)** - Fallback WHOIS lookup via RDAP protocol
+- **Whoiser Library** - Primary WHOIS data retrieval
+
+## How to Run Locally
+
+### Prerequisites
+
+- Node.js 18+ installed
+- npm, yarn, pnpm, or bun package manager
+
+### Installation
+
+1. Clone the repository:
+```bash
+git clone <repository-url>
+cd whoami
+```
+
+2. Install dependencies:
+```bash
+npm install
+# or
+yarn install
+# or
+pnpm install
+# or
+bun install
+```
+
+3. Run the development server:
 ```bash
 npm run dev
 # or
@@ -14,23 +62,28 @@ pnpm dev
 bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+4. Open [http://localhost:3000](http://localhost:3000) in your browser
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Build for Production
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+npm run build
+npm start
+```
 
-## Learn More
+## Project Structure
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```
+whoami/
+├── app/
+│   ├── api/
+│   │   ├── client-info/     # IP detection and geolocation endpoint
+│   │   └── whois/           # WHOIS lookup endpoint
+│   ├── components/
+│   │   ├── ClientInfo.tsx   # Displays IP and browser information
+│   │   └── WhoisSearch.tsx  # WHOIS lookup interface
+│   ├── globals.css          # Global styles and Matrix theme
+│   ├── layout.tsx           # Root layout
+│   └── page.tsx             # Home page
+└── package.json
+```
