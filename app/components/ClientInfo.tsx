@@ -77,8 +77,8 @@ export default function ClientInfo() {
     <div className="w-full max-w-4xl space-y-6 font-mono">
       {/* Main IP and Location Info */}
       <div className="matrix-card-primary">
-        <h2 className="matrix-heading-primary text-3xl mb-4">&gt; IP ADDRESS</h2>
-        <div className="matrix-heading-large mb-4">{clientInfo.ip}</div>
+        <h2 className="matrix-heading-primary mb-4">&gt; IP ADDRESS</h2>
+        <div className="text-3xl sm:text-4xl md:text-5xl font-bold text-[#00ff41] font-mono mb-4 break-all" style={{textShadow: '0 0 15px #00ff41'}}>{clientInfo.ip}</div>
 
         {clientInfo.location && (
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm matrix-text-green">

@@ -12,7 +12,7 @@ export default function Home() {
       <div className="container mx-auto px-4 py-8 relative z-10">
         {/* Header */}
         <header className="text-center mb-12">
-          <h1 className="matrix-heading-large mb-3 tracking-wider animate-pulse">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-[#00ff41] font-mono mb-3 tracking-wider animate-pulse" style={{textShadow: '0 0 15px #00ff41'}}>
             &gt; WHO AM I?
           </h1>
         </header>

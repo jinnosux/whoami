@@ -89,7 +89,7 @@ export default function WhoisSearch() {
             <label htmlFor="whois-query" className="block text-sm font-medium matrix-text-dark-green mb-2">
               &gt; ENTER DOMAIN OR IP ADDRESS
             </label>
-            <div className="flex gap-2">
+            <div className="flex flex-col sm:flex-row gap-2">
               <input
                 id="whois-query"
                 type="text"
@@ -102,7 +102,7 @@ export default function WhoisSearch() {
               <button
                 type="submit"
                 disabled={loading || !query.trim() || cooldown}
-                className="matrix-button"
+                className="matrix-button whitespace-nowrap"
               >
                 {loading ? '> SEARCHING...' : cooldown ? `> WAIT ${cooldownTime}s` : '> SEARCH'}
               </button>
