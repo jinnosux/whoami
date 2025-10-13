@@ -4,7 +4,7 @@ import { useState, useRef } from 'react';
 
 interface WhoisResult {
   query: string;
-  data: any;
+  data: Record<string, unknown>;
   timestamp: string;
   error?: string;
   message?: string;
@@ -74,7 +74,7 @@ export default function WhoisSearch() {
     }
   };
 
-  const formatWhoisData = (data: any): string => {
+  const formatWhoisData = (data: Record<string, unknown>): string => {
     if (typeof data === 'string') return data;
     return JSON.stringify(data, null, 2);
   };

@@ -30,7 +30,7 @@ export async function GET(request: NextRequest) {
 
     // Check if all results are errors
     const allErrors = Object.values(result).every(
-      (val: any) => val && val.error
+      (val: unknown) => val && typeof val === 'object' && 'error' in val
     );
 
     // If all results are errors or timeout, try to use rdap.org as fallback (completely free, no limits)
@@ -47,7 +47,7 @@ export async function GET(request: NextRequest) {
           const rdapData = await rdapResponse.json();
 
           // Format RDAP response
-          const formattedData: any = {
+          const formattedData: Record<string, unknown> = {
             'Domain Name': rdapData.ldhName || rdapData.unicodeName,
             'Status': rdapData.status,
             'Events': {},
@@ -55,24 +55,24 @@ export async function GET(request: NextRequest) {
 
           // Parse events (registration, expiration, etc.)
           if (rdapData.events) {
-            rdapData.events.forEach((event: any) => {
-              formattedData['Events'][event.eventAction] = event.eventDate;
+            rdapData.events.forEach((event: { eventAction: string; eventDate: string }) => {
+              (formattedData['Events'] as Record<string, string>)[event.eventAction] = event.eventDate;
             });
           }
 
           // Parse name servers
           if (rdapData.nameservers) {
-            formattedData['Name Servers'] = rdapData.nameservers.map((ns: any) => ns.ldhName);
+            formattedData['Name Servers'] = rdapData.nameservers.map((ns: { ldhName: string }) => ns.ldhName);
           }
 
           // Parse entities (registrar, registrant, etc.)
           if (rdapData.entities) {
-            rdapData.entities.forEach((entity: any) => {
+            rdapData.entities.forEach((entity: { roles?: string[]; vcardArray?: [number, unknown[]] }) => {
               if (entity.roles) {
                 const role = entity.roles[0];
                 if (entity.vcardArray && entity.vcardArray[1]) {
                   const vcard = entity.vcardArray[1];
-                  const name = vcard.find((v: any) => v[0] === 'fn');
+                  const name = vcard.find((v: unknown) => Array.isArray(v) && v[0] === 'fn') as unknown[];
                   if (name && name[3]) {
                     formattedData[`${role} Name`] = name[3];
                   }
