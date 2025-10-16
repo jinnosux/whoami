@@ -120,7 +120,7 @@ setInterval(() => {
   }
 }, 5 * 60 * 1000);
 
-export async function GET() {
+export async function GET(request: Request) {
   try {
     // Check if API key is configured
     if (!PROXYCHECK_API_KEY) {
@@ -138,23 +138,34 @@ export async function GET() {
       );
     }
 
-    // Get the real public IP using ipify (same method as client-info)
-    let ip = 'Unknown';
+    // Get client IP from headers (not server IP!)
+    const headers = new Headers(request.headers);
+    const forwarded = headers.get('x-forwarded-for');
+    const realIp = headers.get('x-real-ip');
+    const cfConnecting = headers.get('cf-connecting-ip'); // Cloudflare
 
-    try {
-      const publicIpResponse = await fetch('https://api.ipify.org?format=json');
-      if (publicIpResponse.ok) {
-        const publicIpData = await publicIpResponse.json();
-        ip = publicIpData.ip;
+    let ip = forwarded ? forwarded.split(',')[0].trim() :
+             realIp ||
+             cfConnecting ||
+             'Unknown';
+
+    // If still no IP (local development), try to get from client-info endpoint
+    if (ip === 'Unknown' || ip === '127.0.0.1' || ip === '::1') {
+      try {
+        const publicIpResponse = await fetch('https://api.ipify.org?format=json');
+        if (publicIpResponse.ok) {
+          const publicIpData = await publicIpResponse.json();
+          ip = publicIpData.ip;
+        }
+      } catch (error) {
+        console.error('Error fetching public IP:', error);
       }
-    } catch (error) {
-      console.error('Error fetching public IP:', error);
     }
 
-    if (ip === 'Unknown') {
+    if (ip === 'Unknown' || ip === '127.0.0.1' || ip === '::1') {
       return NextResponse.json(
         {
-          error: 'Could not determine public IP address',
+          error: 'Could not determine client IP address',
           isVpn: false,
           isProxy: false,
           isTor: false,
