@@ -1,5 +1,10 @@
-import ClientInfo from './components/ClientInfo';
 import WhoisSearch from './components/WhoisSearch';
+import ClientIPInfo from './components/ClientIPInfo';
+import BrowserInfo from './components/BrowserInfo';
+import VpnProxyDetection from './components/VpnProxyDetection';
+import WebRTCLeakTest from './components/WebRTCLeakTest';
+import RequestHeaders from './components/RequestHeaders';
+import ConnectionDetails from './components/ConnectionDetails';
 
 export default function Home() {
   return (
@@ -19,14 +24,27 @@ export default function Home() {
 
         {/* Main Content */}
         <main className="flex flex-col items-center gap-8">
-          {/* Client Information Section */}
-          <ClientInfo />
+          {/* WHOIS Search Section */}
+          <WhoisSearch />
 
           {/* Divider */}
           <div className="w-full max-w-4xl border-t-2 border-[#008f11] my-4"></div>
 
-          {/* WHOIS Search Section */}
-          <WhoisSearch />
+          {/* IP Address and Location */}
+          <ClientIPInfo />
+
+          {/* Browser Information */}
+          <BrowserInfo />
+
+          {/* Security Analysis Section */}
+          <VpnProxyDetection />
+          <WebRTCLeakTest />
+
+          {/* Request Headers */}
+          <RequestHeaders />
+
+          {/* Connection Details - at the bottom */}
+          <ConnectionDetails />
         </main>
 
         {/* Footer */}

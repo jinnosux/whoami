@@ -87,7 +87,7 @@ export default function WhoisSearch() {
         <form onSubmit={handleSearch} className="space-y-4">
           <div>
             <label htmlFor="whois-query" className="block text-sm font-medium matrix-text-dark-green mb-2">
-              &gt; ENTER DOMAIN OR IP ADDRESS
+              ENTER DOMAIN OR IP ADDRESS
             </label>
             <div className="flex flex-col sm:flex-row gap-2">
               <input
@@ -95,7 +95,7 @@ export default function WhoisSearch() {
                 type="text"
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
-                placeholder="google.com or 8.8.8.8"
+                placeholder="vaha.dev or 8.8.8.8"
                 className="flex-1 matrix-input"
                 disabled={loading}
               />
@@ -112,17 +112,17 @@ export default function WhoisSearch() {
           <div className="flex flex-wrap gap-2">
             <button
               type="button"
-              onClick={() => setQuery('google.com')}
+              onClick={() => setQuery('vaha.dev')}
               className="matrix-button-small"
             >
-              google.com
+              vaha.dev
             </button>
             <button
               type="button"
-              onClick={() => setQuery('github.com')}
+              onClick={() => setQuery('brazzers.com')}
               className="matrix-button-small"
             >
-              github.com
+              brazzers.com
             </button>
             <button
               type="button"
